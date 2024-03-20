@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./LoginForm.css";
 import Card from "../Card/Card";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = (props) => {
+
+const LoginForm = () => {
+    let navigate = useNavigate();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessages, setErrorMessages] = useState({});
@@ -17,6 +21,13 @@ const LoginForm = (props) => {
         noUsername: "Please enter your username",
         noPassword: "Please enter your password",
     };
+
+    useEffect(() => {
+        if(loggedIn){
+            navigate('/dashboard');
+        }
+
+    }, [loggedIn]);
 
 
     const handleSubmit = (e) => {
@@ -58,7 +69,7 @@ const LoginForm = (props) => {
 
     return (
         <Card style={{marginLeft: '30%'}}>
-            {props.passChildData(loggedIn)}
+            {/*{props.passChildData(loggedIn)}*/}
             <h1 className="title">Sign In</h1>
             <p className="subtitle">
                 Please log in using your username and password!
